@@ -1,4 +1,3 @@
-
 function sayHello() {
-  alert('Hello from script.js!');
+  alert("你好！欢迎来到我的网站！");
 }

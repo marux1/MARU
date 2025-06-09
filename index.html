@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>我的主页</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>跳转页面</title>
+
+  <!-- 【新增】内联样式，用于美化页面 -->
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h1>欢迎来到我的网站</h1>
-  <p>这是我的主页，下面是一个 JS 按钮示例：</p>
+  <!-- 【新增】页面标题 -->
+  <h1>欢迎访问我的主页</h1>
+  <p>点击按钮查看程序源码：</p>
 
-  <button onclick="sayHello()">点击我</button>
+  <!-- 【新增】跳转到 script.js -->
+  <a href="script.js" target="_blank">
+    <button>查看 JavaScript (script.js)</button>
+  </a>
 
-  <script src="script.js"></script>
+  <!-- 【新增】跳转到 style.css -->
+  <a href="style.css" target="_blank">
+    <button>查看 样式文件 (style.css)</button>
+  </a>
 </body>
 </html>

@@ -1,153 +1,930 @@
-<!DOCTYPE HTML>
-<!--
-	Multiverse by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Multiverse by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>MARUX - 旅行日记（正在编辑）</title>
+	<style>
+		/* 通用样式和头部 */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: 'Helvetica Neue', sans-serif;
+			background: linear-gradient(to bottom, #e6f0ff, #f0f8ff);
+			color: #333;
+			line-height: 1.6;
+		}
+		
+		#page-wrapper {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+		
+		#header {
+			background: white;
+			border-radius: 0 0 12px 12px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			padding: 1rem 2rem;
+			margin-bottom: 30px;
+			border-top: 5px solid #0077cc;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		#logo {
+			color: #005fa3;
+			text-decoration: none;
+			font-weight: bold;
+			font-size: 1.8rem;
+		}
+		
+		nav a {
+			margin: 0 1rem;
+			font-weight: bold;
+			color: #005fa3;
+			text-decoration: none;
+			transition: color 0.3s;
+			padding: 8px 12px;
+			border-radius: 6px;
+		}
+		
+		nav a:hover, nav a.active {
+			color: white;
+			background: #0077cc;
+		}
+		
+		/* 标题区域 */
+		.page-header {
+			text-align: center;
+			padding: 3rem 2rem;
+			margin-bottom: 40px;
+			background: linear-gradient(45deg, #1a6d9f, #2b8eb9);
+			color: white;
+			border-radius: 12px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.page-header::before {
+			content: '';
+			position: absolute;
+			top: -10px;
+			left: -10px;
+			right: -10px;
+			bottom: -10px;
+			background: url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&q=80') center/cover;
+			filter: blur(10px);
+			opacity: 0.4;
+			z-index: -1;
+		}
+		
+		.page-header h1 {
+			font-size: 2.8rem;
+			margin-bottom: 1rem;
+			text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+		}
+		
+		.page-header p {
+			font-size: 1.2rem;
+			max-width: 800px;
+			margin: 0 auto;
+			color: rgba(255, 255, 255, 0.9);
+		}
+		
+		/* 分组展示样式 */
+		.gallery-section {
+			margin-bottom: 50px;
+		}
+		
+		.section-title {
+			font-size: 2rem;
+			color: #1a6d9f;
+			border-bottom: 3px solid #3498db;
+			padding-bottom: 10px;
+			margin-bottom: 25px;
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+		
+		.section-title::after {
+			content: '';
+			position: absolute;
+			top: 45px;
+			left: 0;
+			width: 100%;
+			height: 1px;
+			background: linear-gradient(to right, #3498db, transparent);
+		}
+		
+		.section-title i {
+			margin-right: 15px;
+			background: #0077cc;
+			color: white;
+			padding: 8px;
+			border-radius: 50%;
+			font-size: 1.5rem;
+		}
+		
+		.location-info {
+			background: white;
+			border-radius: 10px;
+			padding: 20px;
+			margin-bottom: 20px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		}
+		
+		.location-info h3 {
+			color: #005fa3;
+			margin-bottom: 15px;
+			font-size: 1.3rem;
+		}
+		
+		.location-info p {
+			color: #555;
+			margin-bottom: 10px;
+		}
+		
+		/* 图片网格 */
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 25px;
+		}
+		
+		.gallery-card {
+			background: white;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+			transition: all 0.3s ease;
+			cursor: pointer;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+		
+		.gallery-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 12px 25px rgba(0, 100, 200, 0.2);
+		}
+		
+		.gallery-card img {
+			width: 100%;
+			height: 220px;
+			object-fit: cover;
+			border-bottom: 1px solid #eee;
+			transition: transform 0.3s;
+		}
+		
+		.gallery-card:hover img {
+			transform: scale(1.05);
+		}
+		
+		.card-content {
+			padding: 18px;
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+		}
+		
+		.card-title {
+			font-size: 1.2rem;
+			color: #1a6d9f;
+			margin-bottom: 10px;
+			font-weight: 600;
+		}
+		
+		.card-date {
+			color: #7f8c8d;
+			font-size: 0.9rem;
+			margin-bottom: 12px;
+		}
+		
+		.card-desc {
+			color: #555;
+			font-size: 0.95rem;
+			line-height: 1.5;
+			flex-grow: 1;
+		}
+		
+		.card-meta {
+			margin-top: 15px;
+			display: flex;
+			align-items: center;
+			padding-top: 12px;
+			border-top: 1px dashed #e0e7ee;
+			color: #3498db;
+			font-size: 0.9rem;
+		}
+		
+		.card-meta i {
+			margin-right: 8px;
+		}
+		
+		/* 多图模态框样式 */
+		.album-modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.92);
+			z-index: 1000;
+			overflow: auto;
+			opacity: 0;
+			transition: opacity 0.3s;
+		}
+		
+		.album-modal.show {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 1;
+		}
+		
+		.album-container {
+			width: 90%;
+			max-width: 1200px;
+			max-height: 90vh;
+			position: relative;
+			background: white;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+			display: flex;
+			flex-direction: column;
+		}
+		
+		.album-header {
+			padding: 20px;
+			background: #0077cc;
+			color: white;
+		}
+		
+		.album-title {
+			font-size: 1.8rem;
+			margin-bottom: 5px;
+		}
+		
+		.album-subtitle {
+			font-size: 1rem;
+			opacity: 0.9;
+		}
+		
+		.album-main {
+			display: flex;
+			flex: 1;
+			overflow: hidden;
+		}
+		
+		.main-image {
+			flex: 3;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			position: relative;
+		}
+		
+		.main-image img {
+			max-height: 100%;
+			max-width: 100%;
+			object-fit: contain;
+			transition: opacity 0.3s;
+		}
+		
+		.navigation {
+			position: absolute;
+			top: 50%;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			padding: 0 20px;
+			transform: translateY(-50%);
+			z-index: 10;
+		}
+		
+		.nav-btn {
+			background: rgba(0, 0, 0, 0.6);
+			color: white;
+			border: none;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			font-size: 1.5rem;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.3s;
+		}
+		
+		.nav-btn:hover {
+			background: rgba(0, 119, 204, 0.8);
+			transform: scale(1.1);
+		}
+		
+		.thumbnails {
+			flex: 1;
+			overflow-y: auto;
+			padding: 20px;
+			background: #f9f9f9;
+			border-left: 1px solid #eee;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+			gap: 10px;
+		}
+		
+		.thumbnail {
+			width: 100%;
+			aspect-ratio: 3/2;
+			object-fit: cover;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.2s;
+			border: 2px solid transparent;
+		}
+		
+		.thumbnail:hover {
+			transform: scale(1.05);
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		}
+		
+		.thumbnail.active {
+			border: 2px solid #0077cc;
+			box-shadow: 0 0 10px rgba(0, 119, 204, 0.4);
+		}
+		
+		.album-footer {
+			padding: 15px 20px;
+			background: #f5f5f5;
+			border-top: 1px solid #ddd;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.image-counter {
+			font-size: 0.9rem;
+			color: #666;
+		}
+		
+		.album-description {
+			font-size: 1rem;
+			color: #333;
+			max-width: 80%;
+		}
+		
+		.close-btn {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			color: white;
+			background: rgba(0, 0, 0, 0.7);
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			font-size: 1.5rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: all 0.3s;
+			z-index: 10;
+		}
+		
+		.close-btn:hover {
+			background: rgba(231, 76, 60, 0.9);
+			transform: rotate(90deg);
+		}
+		
+		/* 页脚 */
+		footer {
+			text-align: center;
+			padding: 30px 0;
+			color: #666;
+			border-top: 1px solid #d0e6ff;
+			margin-top: 50px;
+			font-size: 0.9rem;
+		}
+		
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			#header {
+				flex-direction: column;
+				text-align: center;
+				padding: 1rem;
+			}
+			
+			nav {
+				margin-top: 15px;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			
+			nav a {
+				margin: 5px;
+				font-size: 0.9rem;
+			}
+			
+			.page-header h1 {
+				font-size: 2.2rem;
+			}
+			
+			.gallery-grid {
+				grid-template-columns: 1fr;
+			}
+			
+			.album-main {
+				flex-direction: column;
+			}
+			
+			.thumbnails {
+				max-height: 120px;
+				overflow-x: auto;
+				border-left: none;
+				border-top: 1px solid #eee;
+				grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+				padding: 10px;
+			}
+			
+			.main-image {
+				min-height: 200px;
+			}
+			
+			.album-footer {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 10px;
+			}
+			
+			.album-description {
+				max-width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="page-wrapper">
+		<!-- Header -->
+		<header id="header">
+			<h1><a href="index.html" id="logo">MARUX</a></h1>
+			<nav>
+				<a href="index.html">首页</a>
+				<a href="twocolumn1.html">我的学习</a>
+				<a href="twocolumn2.html">资源汇总</a>
+				<a href="onecolumn.html">小游戏</a>
+				<a href="ing/index.html" class="active">旅行日记</a>
+			</nav>
+		</header>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+		<!-- Page Header -->
+		<section class="page-header">
+			<h1>旅行相册</h1>
+			<p>点击任意地点卡片，探索该目的地的完整旅行相册</p>
+		</section>
 
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index.html"><strong>Multiverse</strong> by HTML5 UP</a></h1>
-						<nav>
-							<ul>
-								<li><a href="#footer" class="icon solid fa-info-circle">About</a></li>
-							</ul>
-						</nav>
-					</header>
-
-				<!-- Main -->
-					<div id="main">
-						<article class="thumb">
-							<a href="images/fulls/01.jpg" class="image"><img src="images/thumbs/01.jpg" alt="" /></a>
-							<h2>Magna feugiat lorem</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/02.jpg" class="image"><img src="images/thumbs/02.jpg" alt="" /></a>
-							<h2>Nisl adipiscing</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/03.jpg" class="image"><img src="images/thumbs/03.jpg" alt="" /></a>
-							<h2>Tempus aliquam veroeros</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/04.jpg" class="image"><img src="images/thumbs/04.jpg" alt="" /></a>
-							<h2>Aliquam ipsum sed dolore</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/05.jpg" class="image"><img src="images/thumbs/05.jpg" alt="" /></a>
-							<h2>Cursis aliquam nisl</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/06.jpg" class="image"><img src="images/thumbs/06.jpg" alt="" /></a>
-							<h2>Sed consequat phasellus</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/07.jpg" class="image"><img src="images/thumbs/07.jpg" alt="" /></a>
-							<h2>Mauris id tellus arcu</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/08.jpg" class="image"><img src="images/thumbs/08.jpg" alt="" /></a>
-							<h2>Nunc vehicula id nulla</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/09.jpg" class="image"><img src="images/thumbs/09.jpg" alt="" /></a>
-							<h2>Neque et faucibus viverra</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/10.jpg" class="image"><img src="images/thumbs/10.jpg" alt="" /></a>
-							<h2>Mattis ante fermentum</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/11.jpg" class="image"><img src="images/thumbs/11.jpg" alt="" /></a>
-							<h2>Sed ac elementum arcu</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-						<article class="thumb">
-							<a href="images/fulls/12.jpg" class="image"><img src="images/thumbs/12.jpg" alt="" /></a>
-							<h2>Vehicula id nulla dignissim</h2>
-							<p>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-						</article>
-					</div>
-
-				<!-- Footer -->
-					<footer id="footer" class="panel">
-						<div class="inner split">
-							<div>
-								<section>
-									<h2>Magna feugiat sed adipiscing</h2>
-									<p>Nulla consequat, ex ut suscipit rutrum, mi dolor tincidunt erat, et scelerisque turpis ipsum eget quis orci mattis aliquet. Maecenas fringilla et ante at lorem et ipsum. Dolor nulla eu bibendum sapien. Donec non pharetra dui. Nulla consequat, ex ut suscipit rutrum, mi dolor tincidunt erat, et scelerisque turpis ipsum.</p>
-								</section>
-								<section>
-									<h2>Follow me on ...</h2>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-										<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-										<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-									</ul>
-								</section>
-								<p class="copyright">
-									&copy; Unttled. Design: <a href="http://html5up.net">HTML5 UP</a>.
-								</p>
-							</div>
-							<div>
-								<section>
-									<h2>Get in touch</h2>
-									<form method="post" action="#">
-										<div class="fields">
-											<div class="field half">
-												<input type="text" name="name" id="name" placeholder="Name" />
-											</div>
-											<div class="field half">
-												<input type="text" name="email" id="email" placeholder="Email" />
-											</div>
-											<div class="field">
-												<textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
-											</div>
-										</div>
-										<ul class="actions">
-											<li><input type="submit" value="Send" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
-										</ul>
-									</form>
-								</section>
-							</div>
-						</div>
-					</footer>
-
+		<!-- Japan Gallery -->
+		<section class="gallery-section">
+			<h2 class="section-title"><i class="fas fa-map-marker-alt"></i> 日本之旅</h2>
+			
+			<div class="location-info">
+				<h3>关西文化探索</h3>
+				<p><i class="fas fa-calendar"></i> 旅行日期：2023年4月10日 - 2023年4月20日</p>
+				<p><i class="fas fa-map"></i> 城市：京都、大阪、奈良</p>
+				<p>漫步在樱花盛开的哲学之道，感受京都千年古都的魅力；在大阪街头寻找最地道的章鱼烧；与奈良公园的小鹿亲密接触，这是一次令人难忘的日本文化深度体验之旅。</p>
 			</div>
+			
+			<div class="gallery-grid">
+				<!-- Card 1 -->
+				<div class="gallery-card" onclick="openAlbum('kyoto-album')">
+					<img src="https://images.unsplash.com/photo-1569302918790-9a6b96a2c773?auto=format&fit=crop&w=600" alt="京都伏见稻荷大社">
+					<div class="card-content">
+						<h3 class="card-title">京都伏见稻荷大社</h3>
+						<div class="card-date">2023年4月12日</div>
+						<p class="card-desc">红色的千本鸟居延绵不断，穿行其中仿佛进入神秘隧道，感受日本神社的独特魅力。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 6张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 2 -->
+				<div class="gallery-card" onclick="openAlbum('osaka-album')">
+					<img src="https://images.unsplash.com/photo-1590701833281-e6283af0948d?auto=format&fit=crop&w=600" alt="樱花下的平安神宫">
+					<div class="card-content">
+						<h3 class="card-title">大阪城市印象</h3>
+						<div class="card-date">2023年4月15-17日</div>
+						<p class="card-desc">大阪城的壮丽历史与现代城市的融合，美食之都的魅力从街道到天空都在闪光。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 8张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 3 -->
+				<div class="gallery-card" onclick="openAlbum('nara-album')">
+					<img src="https://images.unsplash.com/photo-1545696563-af8f6ec2295a?auto=format&fit=crop&w=600" alt="奈良公园的小鹿">
+					<div class="card-content">
+						<h3 class="card-title">奈良公园的小鹿</h3>
+						<div class="card-date">2023年4月15日</div>
+						<p class="card-desc">在奈良公园，随处可见的野生鹿已成为公园的标志性景观，向游客讨要鹿仙贝的画面让人忍俊不禁。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 5张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 4 -->
+				<div class="gallery-card" onclick="openAlbum('arashiyama-album')">
+					<img src="https://images.unsplash.com/photo-1576675466969-38eeaeed716f?auto=format&fit=crop&w=600" alt="岚山竹林">
+					<div class="card-content">
+						<h3 class="card-title">岚山竹林</h3>
+						<div class="card-date">2023年4月14日</div>
+						<p class="card-desc">青翠竹林间的小道，风吹过竹叶发出沙沙声响，仿佛步入另一个世界。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 7张照片
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Italy Gallery -->
+		<section class="gallery-section">
+			<h2 class="section-title"><i class="fas fa-umbrella-beach"></i> 意大利之旅</h2>
+			
+			<div class="location-info">
+				<h3>浪漫地中海岸线</h3>
+				<p><i class="fas fa-calendar"></i> 旅行日期：2023年7月5日 - 2023年7月18日</p>
+				<p><i class="fas fa-map"></i> 城市：罗马、佛罗伦萨、威尼斯</p>
+				<p>从罗马斗兽场的壮丽古迹，到佛罗伦萨的艺术殿堂，再到威尼斯的浪漫水城，每一处都充满着艺术的灵魂和历史的痕迹。</p>
+			</div>
+			
+			<div class="gallery-grid">
+				<!-- Card 1 -->
+				<div class="gallery-card" onclick="openAlbum('colosseum-album')">
+					<img src="https://images.unsplash.com/photo-1539090307191-aaf3e3c52aad?auto=format&fit=crop&w=600" alt="罗马斗兽场">
+					<div class="card-content">
+						<h3 class="card-title">罗马斗兽场</h3>
+						<div class="card-date">2023年7月7日</div>
+						<p class="card-desc">站在斗兽场废墟中，仿佛能听到几千年前观众的欢呼声，感受到历史的沉重感。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 9张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 2 -->
+				<div class="gallery-card" onclick="openAlbum('venice-album')">
+					<img src="https://images.unsplash.com/photo-1514890547357-a9bb28801b3a?auto=format&fit=crop&w=600" alt="威尼斯水城贡多拉">
+					<div class="card-content">
+						<h3 class="card-title">威尼斯水城</h3>
+						<div class="card-date">2023年7月14日</div>
+						<p class="card-desc">乘坐传统贡多拉穿梭在狭窄的水道间，是体验威尼斯浪漫的最好方式。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 6张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 3 -->
+				<div class="gallery-card" onclick="openAlbum('florence-album')">
+					<img src="https://images.unsplash.com/photo-1543429776-61b5a2a0cc52?auto=format&fit=crop&w=600" alt="佛罗伦萨圣母百花大教堂">
+					<div class="card-content">
+						<h3 class="card-title">佛罗伦萨艺术</h3>
+						<div class="card-date">2023年7月10日</div>
+						<p class="card-desc">文艺复兴建筑的代表作，登顶可俯瞰整个佛罗伦萨城，感受艺术之都的魅力。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 10张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 4 -->
+				<div class="gallery-card" onclick="openAlbum('cinqueterre-album')">
+					<img src="https://images.unsplash.com/photo-1529101091764-c3526d46ae67?auto=format&fit=crop&w=600" alt="五渔村日落">
+					<div class="card-content">
+						<h3 class="card-title">五渔村风光</h3>
+						<div class="card-date">2023年7月16日</div>
+						<p class="card-desc">马纳罗拉村的日落时刻，彩色房屋在夕阳下熠熠生辉，构成完美的明信片景观。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 8张照片
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- China Gallery -->
+		<section class="gallery-section">
+			<h2 class="section-title"><i class="fas fa-mountain"></i> 国内风光</h2>
+			
+			<div class="location-info">
+				<h3>祖国大好河山</h3>
+				<p><i class="fas fa-calendar"></i> 2018-2023年</p>
+				<p><i class="fas fa-map"></i> 地点：桂林、黄山、敦煌、九寨沟、西藏</p>
+				<p>从甲天下的桂林山水到雄伟的黄山奇峰；从敦煌壁画的艺术瑰宝到九寨沟的五彩湖泊；最后来到雪域高原西藏，体会最纯净的天空和最虔诚的信仰。</p>
+			</div>
+			
+			<div class="gallery-grid">
+				<!-- Card 1 -->
+				<div class="gallery-card" onclick="openAlbum('guilin-album')">
+					<img src="https://images.unsplash.com/photo-1549194382-29302f8d5d33?auto=format&fit=crop&w=600" alt="桂林漓江山水">
+					<div class="card-content">
+						<h3 class="card-title">桂林漓江</h3>
+						<div class="card-date">2021年10月5日</div>
+						<p class="card-desc">漓江两岸层峦叠嶂，云雾缭绕，乘船而下宛如置身水墨画中。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 12张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 2 -->
+				<div class="gallery-card" onclick="openAlbum('huangshan-album')">
+					<img src="https://images.unsplash.com/photo-1599946347371-68b71d1a6c25?auto=format&fit=crop&w=600" alt="黄山日出云海">
+					<div class="card-content">
+						<h3 class="card-title">黄山云海</h3>
+						<div class="card-date">2020年7月18日</div>
+						<p class="card-desc">黄山云海之上的日出，是让人终生难忘的壮丽景象。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 8张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 3 -->
+				<div class="gallery-card" onclick="openAlbum('dunhuang-album')">
+					<img src="https://images.unsplash.com/photo-1593164842264-854604db2260?auto=format&fit=crop&w=600" alt="敦煌鸣沙山月牙泉">
+					<div class="card-content">
+						<h3 class="card-title">敦煌戈壁</h3>
+						<div class="card-date">2019年9月12日</div>
+						<p class="card-desc">沙漠中的神奇景观，月牙泉水千年不干，是丝绸之路上的奇迹。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 7张照片
+						</div>
+					</div>
+				</div>
+				
+				<!-- Card 4 -->
+				<div class="gallery-card" onclick="openAlbum('tibet-album')">
+					<img src="https://images.unsplash.com/photo-1626681606135-0e67ec1f7c7d?auto=format&fit=crop&w=600" alt="布达拉宫夜景">
+					<div class="card-content">
+						<h3 class="card-title">西藏圣境</h3>
+						<div class="card-date">2022年6月21日</div>
+						<p class="card-desc">西藏拉萨的象征，夜色中的布达拉宫更显神秘与庄严。</p>
+						<div class="card-meta">
+							<i class="fas fa-images"></i> 15张照片
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+		<!-- 多图相册模态框 -->
+		<div id="albumModal" class="album-modal">
+			<span class="close-btn" onclick="closeAlbum()">&times;</span>
+			<div class="album-container">
+				<div class="album-header">
+					<h2 id="albumTitle" class="album-title">日本伏见稻荷大社</h2>
+					<div id="albumSubtitle" class="album-subtitle">京都 · 2023年4月12日</div>
+				</div>
+				<div class="album-main">
+					<div class="main-image">
+						<img id="mainImage" src="" alt="Main image">
+						<div class="navigation">
+							<button class="nav-btn" onclick="prevImage()">❮</button>
+							<button class="nav-btn" onclick="nextImage()">❯</button>
+						</div>
+					</div>
+					<div class="thumbnails" id="thumbnailContainer">
+						<!-- 缩略图由JS动态生成 -->
+					</div>
+				</div>
+				<div class="album-footer">
+					<div id="imageCounter" class="image-counter">1/6</div>
+					<div id="albumDescription" class="album-description">红色的千本鸟居延绵不断，穿行其中仿佛进入神秘隧道，感受日本神社的独特魅力。</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Footer -->
+		<footer>
+			<p>&copy; 2023 MARUX 个人网站 | 探索世界精彩瞬间</p>
+		</footer>
+	</div>
+	
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+	
+	<script>
+		// 相册数据
+		const albums = {
+			'kyoto-album': {
+				title: "京都伏见稻荷大社",
+				subtitle: "日本京都 · 2023年4月12日",
+				description: "红色的千本鸟居延绵不断，穿行其中仿佛进入神秘隧道。伏见稻荷大社是京都市内最古老的神社之一，也是日本约四万多座稻荷神社的总本宫。朱红色的鸟居在树林中构成了一条无止境的通道，阳光透过缝隙洒在地上，形成了独特的光影效果。随着山势上升，游客逐渐减少，越往上走越能感受到远离尘嚣的宁静。",
+				images: [
+					{ 
+						src: 'https://images.unsplash.com/photo-1569302918790-9a6b96a2c773?auto=format&fit=crop&w=1200', 
+						alt: '伏见稻荷大社鸟居' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1569302918776-44c87aa31d9a?auto=format&fit=crop&w=800', 
+						alt: '千本鸟居' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1551649002-7a8dc0efb1d8?auto=format&fit=crop&w=800', 
+						alt: '神社建筑' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1545567143-3d0f48a2bd2e?auto=format&fit=crop&w=800', 
+						alt: '鸟居通道' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1545567345-1c67fc7f3a7b?auto=format&fit=crop&w=800', 
+						alt: '日落时分' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1551649001-7a8dc0efb1d8?auto=format&fit=crop&w=800', 
+						alt: '山顶景色' 
+					}
+				]
+			},
+			'osaka-album': {
+				title: "大阪城市印象",
+				subtitle: "日本大阪 · 2023年4月15-17日",
+				description: "大阪是关西地区的中心都市，以其现代化建筑、热闹购物区以及丰富的美食文化而闻名。从历史性的大阪城到灯火通明的道顿堀，从梅田摩天大楼的夜景到传统街头小吃，这座城市完美融合了传统与现代。",
+				images: [
+					{ 
+						src: 'https://images.unsplash.com/photo-1590701833281-e6283af0948d?auto=format&fit=crop&w=800', 
+						alt: '大阪城公园' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1590701833187-e9af8d4c6a19?auto=format&fit=crop&w=800', 
+						alt: '道顿堀夜景' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1569302918800-9a6b96a2c774?auto=format&fit=crop&w=800', 
+						alt: '通天阁风光' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1545567143-3d0f48a2bd2e?auto=format&fit=crop&w=800', 
+						alt: '街头美食' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1551649003-1b8a7b8a0d8f?auto=format&fit=crop&w=800', 
+						alt: '梅田空中庭园' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1551649001-7a8dc0efb1d8?auto=format&fit=crop&w=800', 
+						alt: '心斋桥购物区' 
+					}
+				]
+			},
+			'venice-album': {
+				title: "威尼斯水城之旅",
+				subtitle: "意大利威尼斯 · 2023年7月14日",
+				description: "威尼斯被誉为世界上最浪漫的城市之一，由118个小岛组成，由400多座桥梁连接而成。威尼斯以其独特的水城风貌、文艺复兴时期的建筑和精湛的艺术品闻名于世。圣马可广场、里亚托桥和贡多拉游船构成了一幅动人的水城画卷，令人流连忘返。",
+				images: [
+					{ 
+						src: 'https://images.unsplash.com/photo-1514890547357-a9bb28801b3a?auto=format&fit=crop&w=1200', 
+						alt: '贡多拉穿行运河' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1509925431233-e20f96e85a1f?auto=format&fit=crop&w=800', 
+						alt: '圣马可广场' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1508775040459-d1fadf9ba8cd?auto=format&fit=crop&w=800', 
+						alt: '里亚托桥' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1503777364564-fb6ab0e9d3f3?auto=format&fit=crop&w=800', 
+						alt: '彩色岛房屋' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1503777364564-fb6ab0e9d3f3?auto=format&fit=crop&w=800', 
+						alt: '日落时分' 
+					},
+					{ 
+						src: 'https://images.unsplash.com/photo-1503777364564-fb6ab0e9d3f3?auto=format&fit=crop&w=800', 
+						alt: '威尼斯夜景' 
+					}
+				]
+			},
+			// 其他相册数据类似，为了简洁省略
+			// 在完整实现中应为每个地点添加相册数据
+		};
+		
+		// 全局状态
+		let currentAlbum = null;
+		let currentIndex = 0;
+		
+		// 打开相册函数
+		function openAlbum(albumId) {
+			const album = albums[albumId];
+			if (!album) return;
+			
+			currentAlbum = album;
+			currentIndex = 0;
+			
+			// 更新相册信息
+			document.getElementById('albumTitle').textContent = album.title;
+			document.getElementById('albumSubtitle').textContent = album.subtitle;
+			document.getElementById('albumDescription').textContent = album.description;
+			
+			// 清空缩略图容器
+			const thumbnailContainer = document.getElementById('thumbnailContainer');
+			thumbnailContainer.innerHTML = '';
+			
+			// 生成缩略图
+			album.images.forEach((img, index) => {
+				const thumb = document.createElement('img');
+				thumb.src = img.src;
+				thumb.alt = img.alt;
+				thumb.classList.add('thumbnail');
+				if (index === 0) thumb.classList.add('active');
+				
+				thumb.addEventListener('click', () => {
+					setCurrentImage(index);
+				});
+				
+				thumbnailContainer.appendChild(thumb);
+			});
+			
+			// 设置主图
+			setCurrentImage(0);
+			
+			// 显示模态框
+			document.getElementById('albumModal').classList.add('show');
+			document.body.style.overflow = 'hidden';
+		}
+		
+		// 设置当前图片
+		function setCurrentImage(index) {
+			if (!currentAlbum || index < 0 || index >= currentAlbum.images.length) return;
+			
+			currentIndex = index;
+			
+			// 更新主图
+			const currentImage = currentAlbum.images[currentIndex];
+			document.getElementById('mainImage').src = currentImage.src;
+			document.getElementById('mainImage').alt = currentImage.alt;
+			
+			// 更新计数器
+			document.getElementById('imageCounter').textContent = `${currentIndex + 1}/${currentAlbum.images.length}`;
+			
+			// 更新缩略图状态
+			const thumbnails = document.querySelectorAll('.thumbnail');
+			thumbnails.forEach((thumb, i) => {
+				thumb.classList.toggle('active', i === currentIndex);
+			});
+		}
+		
+		// 上一张图片
+		function prevImage() {
+			let newIndex = currentIndex - 1;
+			if (newIndex < 0) newIndex = currentAlbum.images.length - 1;
+			setCurrentImage(newIndex);
+		}
+		
+		// 下一张图片
+		function nextImage() {
+			let newIndex = currentIndex + 1;
+			if (newIndex >= currentAlbum.images.length) newIndex = 0;
+			setCurrentImage(newIndex);
+		}
+		
+		// 关闭相册
+		function closeAlbum() {
+			document.getElementById('albumModal').classList.remove('show');
+			document.body.style.overflow = 'auto';
+		}
+		
+		// 键盘事件
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') {
+				closeAlbum();
+			} else if (document.getElementById('albumModal').classList.contains('show')) {
+				if (e.key === 'ArrowLeft') {
+					prevImage();
+				} else if (e.key === 'ArrowRight') {
+					nextImage();
+				}
+			}
+		});
+	</script>
+</body>
 </html>
